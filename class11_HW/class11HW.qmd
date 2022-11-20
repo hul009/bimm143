@@ -1,0 +1,45 @@
+---
+title: "Homework"
+author: "Nancy Lin"
+format: html
+---
+
+```{r}
+expr<-read.table("rs8067378_ENSG00000172057.6.txt")
+head(expr)
+```
+```{r}
+nrow(expr)
+```
+>Q13: Read this file into R and determine the sample size for each genotype and their
+corresponding median expression levels for each of these genotypes.
+
+```{r}
+table(expr$geno)
+```
+A/A A/G G/G 
+108 233 121 
+
+geno
+
+exp.median
+
+1	A/A	31.24847		
+2	A/G	25.06486		
+3	G/G	20.07363	
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ggplot(expr)+aes(x=geno,exp,fill=geno)+
+  geom_boxplot(notch=TRUE)
+```
+```{r}
+library(doBy)
+summaryBy(exp~geno, data = expr, FUN= median) 
+```
+
+
+
